@@ -1,0 +1,22 @@
+\chapter{Related Work} \label{chap:relatedwork}
+
+
+\section{Mobile-Cloudlet-Cloud Acceleration Architecture (2012)}
+
+Soyata et al. proposed an architecture of mobile-cloudlet-cloud in 2012. They found that face identification techniques are demanded everywhere such as airport security, law enforcement and cover a series of stages. Image extracting and re-sizing, feature extractions and detection are core components among these stages, which relies intensive computation.
+
+Given low power of computing and limited bandwidth of end devices, they make use of cloudlet to execute pre-processing tasks. For example, they extracted Haar features instead of sending the whole image to the cloud to reduce network consumption. At the other hand, this feature extraction tasks are allocated to underlying cloudlets so that burden of the Cloud Computing are lessened.
+
+\section{Mobile Cloud Computing (2014)}
+
+Ayad et al. articulated the emerging research topic of face recognition in their paper published in 2014. They regarded facial identity as effective crime-fighting tools. The increasing number of mobile devices also attract their attentions, most of which are embedded decent image capture hardware. To the contrary, the computing power of these mobile devices is incompetent to analyse the collected data. Authors drafted a concept of mobile cloud computing to break this situation. 
+
+Various cloud computing models are discussed in their paper with private cloud highlighted. OpenStack and OpenShift are considered in this cloud deployment model. Further more, they covered the previous definition of the mobile cloud computing model, to be specific, three. Soyata et al.'s work is referred when they tried to include experience as much as possible.
+
+After investigating mainstream face detection and recognition technologies, nothing newer introduced. However, these authors took relevant issues into consideration such as security and trust.
+
+\section{Fog Computing Based Face Identification (2017)}
+
+Hu et al. presented a fog based model for face identification in 2017 based on the fact that identification technology is prerequisite for consistency of physical-cyber space mapping in the Internet of Things. Given face is a distinctive feature of human, they conduct their experiment through it. 
+
+In their prototype system, fog computing nodes are taken responsibility for image pre-processing and feature extraction tasks just as the cloudlet did in Soyata et al.'s paper. The cloud nodes only play the role of face detection and recognition. Relevant face matching algorithm is LBP that is a traditional face recognition method.
