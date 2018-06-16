@@ -1,4 +1,33 @@
 \chapter{Design of the System} \label{chap:design}
+This chapter is about the design of the system. It covers the components I used in the Fog nodes based face identification system and explain the reason why I come to this idea and expected performance. Then, the next chapter will give more practical implementation detail of this design.
 
+\section{Overview}
+On the whole, the system consists of two behaviour mode, namely off-peak mode and peak mode. Off-peak mode means the requests from end devices are sparse or distributed evenly so that Fog nodes own the capability of responding within limited time slot. Cloud nodes are not involved in this mode. On the contrary, peak mode demands the power of Cloud Nodes. This mode is triggered through a dynamic allocation algorithm which monitors the pressure of the Fog Nodes.
+
+\section{Off-peak Mode}
+This mode only cover the lower two layers in the figure \ref{fig:design_of_the_system}. As you can see in the figure, the lowest layer contains end devices in the network of Internet of Things. 
+
+In my implementation, Nexus 6 android phones are used to play the role of the end device. Though there is only one android depicted in the figure, it is on behalf of all Internet of Things devices with limited hardware resource. This device is in charge of collecting images through preview frame from camera and sending them to closest working Fog Nodes periodically.
+
+The Fog Nodes in the higher layer (medium layer) substitute the Cloud counterparts as the resource pool of computing. They are commodity personal computers in my implementation. They provide the service of face detection and face recognition. At the same time, they monitor the traffic of request to make the decision that whether Cloud Nodes should be included in the computing cycle and how many of them are required. This feature is called dynamic allocation in the system.
+
+\section{Peak Mode}
+Peak mode contains three layers as a whole. Compared to off-peak mode, one more layer is added. The top layer consists of Cloud Nodes and the rest of layers are the same with the off-peak mode.
+
+Peak mode is activated when the requests from the end devices are frequent. This mode involves Cloud Nodes, which make it different from the Fog Mode. Amazon EC2 or other cloud computing infrastructures are used as an elastic resource pool. Due to its characteristic, temporary high demand of computing tasks can be flattened.
+
+Expected disadvantages of introducing the Cloud Nodes includes longer latency and security issues.
+
+\section{Face Identification}
+Face detection and recognition algorithm themselves are popular research topic. Consider they are not my focal topic, I tried to bring in popular implementations aimed at gain confidence for my system.
+
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{images/design-of-the-system.png}
+    \caption{Design of the System}
+    \label{fig:design_of_the_system}
+\end{figure}
 
 
