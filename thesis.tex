@@ -36,6 +36,7 @@
 \usepackage{wrapfig}
 \usepackage{xcolor}
 \usepackage{xspace}
+\usepackage{pgfplots}
 \rcDecimalSignOutput{.} % rccol
 
 \newenvironment{sidewaystablepage}{\begin{landscape}\begin{table}}{\end{table}\end{landscape}}
@@ -63,6 +64,8 @@
 \oddsidemargin=0cm	% really 1in
 \evensidemargin=0cm
 \textwidth=6.2677165in
+
+\pgfplotsset{width=10cm,compat=1.9}
 
 % initial page numbers:  i, ii, iii, ...
 \renewcommand{\thepage}{\roman{page}}
