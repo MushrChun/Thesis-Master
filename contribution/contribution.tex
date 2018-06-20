@@ -1,23 +1,23 @@
 \chapter{Contribution} \label{chap:contribution}
 
-Even though much work has been done according to the discussion happens in the previous section. Their related work may not preciously reflect the fast pace of changing. The overall computing power is continuously advancing. In the case of Internet of Things, power of nodes deployed in various scenarios also boosts without hesitation. Tasks that used to be not suitable for Internet of Things' nodes now become common ones. 
+Even though much work has been done according to the discussion happens in the previous chapter. These related work may not preciously reflect the fast pace of march in the field of hardware. The overall computing power is continuously advancing. In the case of Internet of Things, power of nodes deployed in various scenarios also boosts without hesitation. Tasks that used to be not suitable for nodes in the Internet of Things now become common ones. 
 
-Based on this fact, I propose to offload more tasks from cloud nodes to fog nodes to further lower the network latency. Due to vague outcome of this adjustment, performance of various aspects of the system will be measured. As a result, a matrix should form to prepare raw data for further analyse.
+Based on this fact, I propose an aggressive model where more tasks are offloaded from cloud nodes to fog nodes to further lower network latency. Due to vague outcome of this adjustment, performance of various aspects of the system will be measured. As a result, a matrix should form to prepare raw data for further analyse.
 
-On the other hand, Fog nodes in this architecture is not to totally substitute the Cloud nodes. Considering the constrained power consumption, low unit computing price of cloud and elasticity of cloud infrastructure, tasks failing to be digested in the Fog layer will be overflowed to the cloud. So a relevant mechanism is drafted to dynamically allocate the tasks among Fog nodes and Cloud nodes
+On the other hand, Fog nodes in this architecture are not to substitute the Cloud Nodes completely. Considering the constrained power consumption, low unit computing price of cloud and elasticity of cloud infrastructure, tasks failing to be digested in the Fog layer will be overflowed to the cloud. So a relevant mechanism is drafted to dynamically allocate the tasks among Fog Nodes and Cloud Nodes
 
 My contribution to this topic can be split into three parts:
 \begin{itemize}
-    \item A fog computing model where face identification tasks are finished closer to end devices.
-    \item A performance matrix of face identification with the fog computing model introduced above.
-    \item A mechanism in which the tasks in Fog Nodes own the capability to scale out to the Cloud Nodes.
+    \item A Fog Computing model with a prototype where face identification tasks are finished closer to end devices.
+    \item A draft of dynamic allocation mechanism to judge where the face identification executed.
+   \item A form of a transparent Computing Model based on the combination of the Cloud and Fog Nodes.
 \end{itemize}
 
 \section{Fog Computing based Face Identification}
-As we discussed, the power of Fog nodes is increasing so that it can handle more computing tasks rather than just pre-processing tasks. In my architecture, computing of face detection and recognition is finished in the Fog nodes. When these nodes find follow-up workload is beyond their capability, a dynamic allocation mechanism will be triggered to coordinate schedules of ambient Fog nodes or involved Cloud nodes. 
+As we discussed, the power of Fog nodes is increasing so that it can handle more computing tasks rather than just pre-processing tasks. In my architecture, computing of face detection and recognition is finished in the Fog Nodes. When these nodes find follow-up workload is beyond their capability, a dynamic allocation mechanism will be triggered to coordinate schedules of ambient Fog nodes or involved Cloud nodes. 
 
 \section{Performance Matrix of current computing model}
-Considering that offloading workload from Cloud nodes to Fog nodes may leads to change on various grounds, performance benchmarks should be sampled as comprehensive as possible. In that case, more further on study can be based on.
+Considering that offloading workload from Cloud nodes to Fog Nodes may lead to change on various grounds, performance benchmarks should be sampled as comprehensive as possible to support future work.
 
 \section{Dynamic Allocation Mechanism}
-As mentioned in the section above, there is an algorithm used to overcome the potential overload of Fog nodes. This algorithm help calculate the required number of Fog nodes based on prior traffic and support where to locate the computing nodes. Proxy techniques are assumed to be used to direct the request from end devices to target computing nodes.
+As mentioned in the section above, there is an algorithm used to overcome the potential overload of Fog nodes. This algorithm help calculate the required number of Fog Nodes based on prior traffic and support where to locate the computing nodes. Proxy techniques are assumed to be used to direct the request from end devices to target computing nodes.
