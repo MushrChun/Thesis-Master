@@ -14,7 +14,7 @@ My contribution to this topic can be split into three parts:
 \end{itemize}
 
 \section{Fog Computing based Face Identification}
-As we discussed, the power of Fog nodes is increasing so that it can handle more computing tasks rather than just pre-processing tasks. In my architecture, computing of face detection and recognition is finished in the Fog Nodes. When these nodes find follow-up workload is beyond their capability, a dynamic allocation mechanism will be triggered to coordinate schedules of ambient Fog nodes or involved Cloud nodes. 
+As we discussed, the power of Fog nodes is increasing so that it can handle more computing tasks rather than just pre-processing tasks. In the architecture, computing of face detection and recognition is finished in the Fog Nodes. When these nodes find follow-up workload is beyond their capability, a dynamic allocation mechanism will be triggered to coordinate schedules of ambient Fog nodes or involved Cloud nodes. 
 
 \section{Performance Evaluation of current computing model}
 Considering that offloading workload from Cloud Nodes to Fog Nodes may lead to changes on various grounds, performance benchmarks should be set up to evaluate whether the merits outweigh the demerits.
@@ -23,3 +23,4 @@ Considering that offloading workload from Cloud Nodes to Fog Nodes may lead to c
 As mentioned in the section above, there is an mechanism used to overcome the potential overload of Fog Nodes. This mechanism helps calculate the required number of Fog Nodes based on prior traffic and support where to locate the computing nodes. Proxy techniques are assumed to be used to direct the request from end devices to target computing nodes.
 
 \section{Transparent Computing Model}
+The combination of Fog Nodes and Cloud Nodes in the architecture leads to transparent computing model. Since the dynamic allocation mechanism judge the location of the computing, end devices have no idea about where the requests are sent to. They can focus on their own business, and the feature of transparency is formed.

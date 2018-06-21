@@ -1,16 +1,16 @@
 \chapter{Implementation of the System} \label{chap:implementation}
 
-The chapter describes how the design of the system is implemented and the relevant challenges. Dedicated explanation of the technical specification can be found in this chapter as well. The explanatory sequence diagrams are illustrated to brief the workflow of the system.
+The methods used to implement the system and relevant challenges raised are discussed in this chapter. Dedicated explanation of the technical specification can be found in this chapter as well. The explanatory sequence diagrams are illustrated to brief the workflow of the system at the end.
 
 \section{Implementation on the Side of End Devices}
 
-As mentioned in the chapter \ref{chap:design}, the end devices are simulated by android phones in my implementation. The targeted devices in the network of the Internet of Things that play the role of sampling ambient information through a video format are assumed as weak computing devices. In other words, they follow the philosophy of design that more tasks are finished with less power and computing unit. The cost of them is low accordingly so that they are realistic for large-scale deployment.
+As mentioned in the chapter \ref{chap:design}, the end devices are simulated by android phones in my implementation. The  Internet of Things devices that play the role of sampling ambient information through a video format are assumed as weak computing devices. In other words, they follow the philosophy of design that more tasks are finished with less power and computing unit. The cost of them is low accordingly so that they are realistic for large-scale deployment.
 
 \subsection{Android Devices}
-Nexus6 is used in the experiment, which was published in 2014, about four years ago. This phone is manufactured by Motorola and embedded with a Qualcomm 2.7 GHz quad-core Krait 450 CPU. \cite{wiki:nexus6} The power of this android phone is not as strong as mainstream counterparts such as Google Pixel 2 nowadays. This weakness contributes to its competence as the replacement of devices in the network of the Internet of Things.
+Nexus 6 is used in the experiment, which was published in 2014, about four years ago. This phone is manufactured by Motorola and embedded with a Qualcomm 2.7 GHz quad-core Krait 450 CPU. \cite{wiki:nexus6} The power of this android phone is not as strong as mainstream counterparts such as Google Pixel 2 nowadays. This weakness contributes to its competence as the replacement of devices in the network of the Internet of Things.
 
 \subsection{Operating System}
-The operating system version of this android phone is 7.1.1 "Nougat". API \cite{android-api} lever of this version is 15 while it is not compulsory since I make use of the android.hardware.camera2 API that is introduced in Android 5.0 (API level 21) \cite{android5.0}. This update enhances the control towards the camera so that fine-grain photos can be captured. 
+The operating system version of this android phone is 7.1.1 "Nougat"\cite{android-api}. API lever of this version is 15 while it is not compulsory since I make use of the android.hardware.camera2 API that is introduced in Android 5.0 (API level 21) \cite{android5.0}. This update enhances the control towards the camera so that fine-grain photos can be captured. 
 
 \subsection{Image Capture}
 The Android phone is equipped with both front and rear camera. The only rear camera is used to capture the video stream. The resolution of the sensor is 13MP \cite{wiki:megapixel}, however, I do not extract the image from the camera directly, so the resolution does not decide the final size of the image.
@@ -24,20 +24,20 @@ In the previous part, the process of image collection is described. Since the fa
 
 The IP address of the Fog Node is hard-coded into the application so rigid network configuration should be followed to make the application to locate the corresponding Fog Nodes. Dynamic Host Configuration Protocol (DHCP) \cite{droms2002dhcp} is an ideal protocol to handle the gap, and actually, it is used in the experiment.
 
-An appointed IP address remains for Fog Node deployment in every sub-network where Fog Node should be accessible. As the diagram \ref{fig:network} shows, end devices are connected to the Fog Nodes directly, within one hop ideally. The links between the Fog Node and Cloud Nodes in different sub-networks(dyed in four different colours) are various. This uncertainty contributes to the network latency in part.
+An appointed IP address remains for Fog Node deployment in every sub-network where Fog Node should be accessible. As the diagram \ref{fig:network} shows, end devices are connected to the Fog Nodes directly, within one hop ideally. The links between the Fog Node and Cloud Nodes in different sub-networks (dyed in four different colours) are various. This uncertainty contributes to the network latency in part.
 
 \section{Communication between End Devices and Fog Nodes}
 The network part shares the underlying physical implementation of the system, and this section covers the protocol used to transmit the collected image data to the Fog Nodes.
 
-Consider Fog Nodes will be distributed into a heterogeneous network, compatibility of the protocol owns a high priority. Hypertext Transfer Protocol(HTTP) is among mainstream standards and play the role of De facto foundation for the World Wide Web \cite{fielding1999hypertext}. So I appoint it as the underlying protocol for the application layer in the Internet protocol suite, namely TCP/IP.
+Considering Fog Nodes will be distributed into a heterogeneous network, compatibility of the protocol owns a high priority. Hypertext Transfer Protocol (HTTP) is among mainstream standards and play the role of De facto foundation for the World Wide Web \cite{fielding1999hypertext}. So I appoint it as the underlying protocol for the application layer in the Internet protocol suite, namely TCP/IP.
 
-Two-way communication is suitable for our scenario. Schedulers sample images and send them to the Fog Nodes for face identification in a recurring way. The instant outcomes will be pushed back to original devices as soon as possible. The data flow of processes mentioned above go in opposite direction, reveal the feature of two-way communication. So the traditional request-response client-server protocol is wiped out from the options due to its disqualification.
+Two-way communication is suitable for the scenario. Schedulers sample images and send them to the Fog Nodes for face identification in a recurring way. The instant outcomes will be pushed back to original devices as soon as possible. The data flow of processes mentioned above go in opposite direction, reveal the feature of two-way communication. So the traditional request-response client-server protocol is wiped out from the options due to its disqualification.
 
 The frequency of requests also damages the shine of the HTTP because of its tedious handshake stage. Even though HTTP/1.1 introduced a keep-alive-mechanism to reuse the previous connection for the incoming request, I prefer the emerging standard of full-duplex communication through HTTP.
 
 WebSocket is a favourable protocol that supports two-way communication and removes the dependence upon multiple HTTP connections  \cite{fette2011websocket}. This mechanism is initially designed for carrying a short message between clients(mainly browsers) between servers. It sounds marvellous for building a real-time chat channel, especially when it comes to compatibility. WebSocket integrates itself with HTTP protocol and is built with TCP. The default port of it is 80, which add to its highlights \cite{fette2011websocket}.
 
-According to the characteristic of WebSocket mentioned, pre-processing of the images is invoked. Considering encoding schemes supported by HTTP, binary data should be converted before they are put into the payload. Base64 is made use of to avoid the omission of the data.
+According to the characteristic of WebSocket mentioned, pre-processing of the images is invoked. Considering encoding schemes supported by HTTP, binary data should be converted before they are put into the payload. Base64 is made use of to avoid the omission of the data with the explanation followed.
 
 Base64 make underlying data can be delivered in a textual format to bypass specific legacy system or lead to better interoperability  \cite{josefsson2006base16}. In our case, it is needed to encode binary data before it is transported to the server side to keep the data intact. The code section in the figure \ref{fig:png_base64} displays how I do the image pre-processing through the Java SDK.
 
@@ -89,7 +89,7 @@ The button labelled with "Fog DNN" triggers another mode where deep learning bas
 The face identification algorithm computes the name of detected faces, other than just the location of the faces.  
 
 \subsubsection{Face Recognition}
-Compared to the prior mode of "Fog Basic", higher quality face identification tasks succeed in this mode. To be more specific, The Fog Basic mode only detects the location of the faces upon one image frame, while Fog DNN mode steps further. Fog DNN manage to compare faces to known faces to report the name of that face.
+Compared to the prior mode of "Fog Basic", higher quality face identification tasks succeed in this mode. To be more specific, The Fog Basic mode only detects the location of the faces upon one image frame, while Fog DNN mode steps further. Fog DNN manage to match faces to known faces to report the name of that face.
 
 The functionality of face recognition is delivered by Dlib. Dlib is developed by Davis King and start with the target of building a general purpose library in 2002 \cite{dlib09}. Considering the popularity of machine learning, contributors focus on the relevant tools as well. Deep metric learning tooling is added to the Dlib in recent releases.
 
@@ -105,32 +105,32 @@ I also rely on asyncio to write single-thread concurrent code with coroutines, m
 \section{Implementation on the Side of Cloud Nodes}
 The Cloud Nodes almost share the same code with Fog Nodes with Fog DNN mode. The Cloud Nodes can be regarded as an elastic resource pool. When the amount of the requests soars beyond the capability of assigned Fog Node, the request will be redirected to Cloud Nodes. The Fog Node that fails to handle the request looks like a proxy.
 
-The decision of whether the computing should happen on Fog Nodes and Cloud Nodes is dependant on the dynamic allocation algorithm deployed on Fog Nodes.
+The decision of whether the computing should happen on Fog Nodes and Cloud Nodes is dependant on the dynamic allocation mechanism deployed on Fog Nodes.
 
 \subsection{Fog Cloud}
 Fog Cloud mode can be activated through the button in the figure \ref{fig:preview} with the same name. In this mode, requests from the end devices are doubled or tripled to mimic the situation where Fog Nodes themselves are unbearable to respond to end devices and quality of service is damaged. In that case, Cloud infrastructures participate in the system to handle the requests handed over from Fog Nodes.
 
 As presented, the code repository of the Cloud Nodes is quite similar to the counterpart in Fog Nodes with DNN mode. Normally, Cloud Nodes are elastic enough to be regarded as infinite computing source. So Basic mode is not implemented at all in the cloud.
 
-The difference between Fog Nodes with DNN mode and Cloud Nodes exists on the deployment. The code on the cloud is executed on the Amazon EC2 instances and embrace the concept of server-less. As a result, if the tasks surge upwards, they can scale up transparently. On the contrary, the deployment of Fog Nodes is solid in that case; the hardware is fixed even though there are a large number of request.
+The difference between Fog DNN mode and Cloud Nodes exists on the deployment. The code on the cloud is executed on the Amazon EC2 instances and embrace the concept of server-less. As a result, if the tasks surge upwards, they can scale up transparently. On the contrary, the deployment of Fog Nodes is solid in that case; the hardware is fixed even though there are a large number of requests.
 
 \subsection{Dynamic Allocation Algorithm}
 Dynamic allocation algorithm plays the role of traffic controller when it comes to deciding the location of computing tasks. The core of the algorithm is to calculate whether the assigned Fog Node owns the competence to maintain the expected quality of service and if not, how many extra computing units are in need.
 
-The mechanism can be explained as follows. Monitors are running in the Fog Nodes. These monitors record the number of the requests(N) for the previous second. The computing time slots(T) are also recorded for every request. The mathematical expectation of the computing time slot can be calculated based on the data, called(ET). Then I assume the coming second holds the same number of requests(N). The assumed {TODO!!!}
+The mechanism can be explained as follows. Monitors are running in the Fog Nodes. These monitors record the number of the requests for the previous several seconds. Meanwhile, they record the time slots of handling the face detection or face recognition tasks. The compare the time slots to prior ones to figure out the trend of the time slots. If the time slots keep increasing, they know the Fog Nodes are going to fail the requests and start to set up the proxy and get connected to idle Cloud Nodes. If the time slots keep stand, it means a stable response time is observed. They are designed to find out a maximum frequency of requests with stable response time and store this number as a parameter with which incoming traffic of request can be judged to allocated to the Cloud Nodes or not agilely.
 
 \section{Response Data Optimisation}
 To reduce the amount of the data transferred from the Fog Nodes or Cloud Nodes, only coordinate and face related meta-data are return. The outcome is combined with the end devices. In other word, Android devices receive these data and visualise it based on preview frame to make the process look like real-time. Originally, the image with detection frames within it will be returned from the Fog Nodes or Cloud Nodes directly. 
 
 \section{Controlled Experiment Setting}
-Two parallel experiments are introduced to make the performance of Fog Computing based face identification more impressive. These modes involve no Computing units outside the end devices.
+Two parallel experiments are introduced to make the performance of Fog Computing based face identification more impressive. These modes involve no computing units outside the end devices.
 
 \subsection{Native Mode}
 Native mode makes the face detection algorithm happen on the native layer of the Android system. The architecture of the Android System can be found in the figure of \ref{fig:android_application_layer}.
 
 Android applications run on ART or its predecessor Dalvik which are the runtime for Dex bytecode files \cite{android-art}. The code invoking camera works on the native layer of the Android System. The memory of executables cannot be directly shared if they are allocated to different layers. The JNI helps to transmit data between native layer(orange part) and application layer(green part).
 
-In the native mode, I chain the face detection task after the image capture and paint the outcome upon the preview frame. As a result, the data of the image remains in the native layer without necessary of movement.
+In the native mode, the face detection task is chained after the image capture and paint the outcome upon the preview frame. As a result, the data of the image remains in the native layer without necessary of movement.
 
 
 \begin{figure}
@@ -141,12 +141,12 @@ In the native mode, I chain the face detection task after the image capture and 
 \end{figure}
 
 \subsection{Local Mode}
-Even though the native mode reveals the performance of keeping the face detection in the low power end devices, the computing model is not universal. In other words, a more isolated model should be used to make it more convincing. For example, general computing task will be coded in the application layer with specific JVM supported programming languages such as Java or Kotlin but in C++ which relies on NDK to manipulate the hardware. 
+Even though the native mode reveals the terrible performance of keeping the face detection in the end devices, the computing model is not universal. In other words, a more isolated model should be used to enhance its convincingness. To be more specific, general computing task will be coded in the application layer with specific JVM supported programming languages such as Java or Kotlin but in C++ which relies on NDK to manipulate the hardware. 
 
 To expose the data to the application layer, migration of the data from native layer to application layer is unavoidable. This process can be found in local mode, where data is transferred to the application layer before the face detection is applied.
 
 \section{Key Sequences Diagram}
-After discussing the decomposed components of the system, the blueprint of it can be view in key sequences diagrams.
+After discussing the decomposed components of the system, the blueprint of it can be view in two sequences diagrams.
 The figure \ref{fig:off-peak_mode_sequence} and the figure \ref{fig:peak_mode_sequence} display the sequence diagram of the system. The first figure illustrates the sequence diagram for the off-peak mode, and the following one expresses the logic of peak mode.
 
 \subsection{Off-peak Mode Sequence}
@@ -156,9 +156,9 @@ The instruction above this point says "choose computing mode". The computing mod
 
 The loop of processes are summarised as follows (Fog Basic and Fog DNN modes only, Native and Local modes are excluded):
 \begin{enumerate}
-    \item capture previews from the camera
-    \item compress and encode the image and send the data to the Fog Node
-    \item Face Detection and Face Recognition according to the chosen mode
+    \item Capture previews from the camera
+    \item Compress and encode the image and send the data to the Fog Node
+    \item Execute Face Detection and Face Recognition according to the chosen mode
     \item Return data consist of locations of faces and related name meta-data
     \item Draw the frame on the end device
 \end{enumerate}
@@ -166,12 +166,12 @@ The loop of processes are summarised as follows (Fog Basic and Fog DNN modes onl
 \subsection{Peak Mode Sequence}
 The figure of \ref{fig:peak_mode_sequence} displays the situation when Fog Cloud mode is activated. As the figure depicted, there is an extra lifeline compared to off-peak mode sequence. The Cloud Nodes lifeline illustrate the functionality of the cloud computing infrastructure. The comment in the diagram points out the stage where dynamic allocation algorithm is taken in part.
 
-the loop of processes are complemented as follows (Fog Cloud Mode):
+The loop of processes are complemented as follows (Fog Cloud Mode):
 \begin{enumerate}
-    \item capture previews from the camera
-    \item compress and encode the image and send the data to the Fog Node
+    \item Capture previews from the camera
+    \item Compress and encode the image and send the data to the Fog Node
     \item Decide the location of the face recognition task
-    \item If  the load is bearable, face recognition in the Fog Nodes
+    \item If the load is bearable, do face recognition in the Fog Nodes
     \item If overload happens to the Fog Nodes, face recognition tasks are allocated to Cloud Nodes
     \item Return data consist of locations of faces and related name meta-data
     \item Draw the frame on the end device
@@ -193,15 +193,15 @@ the loop of processes are complemented as follows (Fog Cloud Mode):
 
 
 \begin{figure}
-    \centering
-    \includegraphics[width=0.3\textwidth]{images/preview.png}
-    \caption{Preview of the End Devices(Android)}
+    \centering    \includegraphics[width=0.6\textwidth]{images/preview.png}
+    \caption{Preview of the End Devices with five modes (Android)}
     \label{fig:preview}
 \end{figure}
 
 \section{Hardware Specification}
+The specification of the hardware used in the implementation can be found in the table \ref{table:end_devices_spec}, \ref{table:fog_nodes_spec} and \ref{table:cloud_nodes_spec}.
 
-\begin{table}[h!]
+\begin{table}[ht]
 \centering
 \begin{tabular}{ |r|l| }
  \hline
@@ -228,7 +228,7 @@ Wi-Fi & 802.11 a/b/g/n/ac 2x2 (MIMO) \\
 \label{table:end_devices_spec}
 \end{table}
 
-\begin{table}[h!]
+\begin{table}[ht]
 \centering
 \begin{tabular}{ |r|l| }
  \hline
@@ -249,7 +249,7 @@ Memory & 7.6 GiB\\
 \label{table:fog_nodes_spec}
 \end{table}
 
-\begin{table}[h!]
+\begin{table}[ht]
 \centering
 \begin{tabular}{ |r|l| }
  \hline

@@ -1,15 +1,15 @@
 \chapter{Design of the System} \label{chap:design}
-This chapter is about the design of the system. It covers the components I used in the Fog Computing based face identification system and explain the reason why I come to this idea. Then, the next chapter will give more practical implementation detail of this design.
+The design of the system is expressed in this chapter through explanation of the components used in the Fog Computing based face identification system. Practical details of implementing this design are covered in the next chapter.
 
 \section{Overview}
-On the whole, the system consists of two behaviour mode, namely off-peak mode and peak mode. Off-peak mode means the requests from end devices are sparse or distributed evenly so that Fog Nodes own the capability of responding within a limited time slot. Cloud Nodes are not involved in this mode. On the contrary, peak mode demands the power of Cloud Nodes. This mode is triggered through a dynamic allocation mechanism which monitors the pressure of the Fog Nodes.
+On the whole, the system consists of two behaviour mode, namely off-peak mode and peak mode. Off-peak mode means the requests from end devices are sparse or distributed evenly so that Fog Nodes own the capability of responding within a limited time slot. Cloud Nodes are not involved in this mode. On the contrary, peak mode demands the power of Cloud Nodes. This mode relies on a dynamic allocation mechanism which monitors the pressure of the Fog Nodes.
 
 \section{Off-peak Mode}
 This mode only cover the lower two layers in the figure \ref{fig:design_of_the_system}. As you can see in the figure, the lowest layer contains end devices in the network of the Internet of Things. 
 
-In my implementation, The Nexus 6 Android phone is used to play the role of the end device. Though there is only one android depicted in the figure, it is on behalf of all Internet of Things devices with limited hardware resource. This device is in charge of collecting images through preview frame from a camera and sending them to a closest working Fog Node periodically.
+In the implementation, The Nexus 6 Android phone is used to play the role of the end device. Though there is only one android depicted in the figure, it is on behalf of all Internet of Things devices with limited hardware resource. This device is in charge of collecting images through preview frame from a camera and sending them to a closest working Fog Node periodically.
 
-The Fog Nodes in the higher layer (medium layer) substitute the Cloud counterparts as the resource pool of computing. They are commodity personal computers in my implementation. They provide the service of face detection and face recognition. At the same time, they monitor the traffic of request to make the decision that whether Cloud Nodes should be included in the computing cycle and how many of them are required. This feature is called dynamic allocation in the system.
+The Fog Nodes in the higher layer (medium layer) substitute the Cloud counterparts as the resource pool of computing. They are commodity personal computers in the implementation. They provide the service of face detection and face recognition. At the same time, they monitor the traffic of request to make the decision that whether Cloud Nodes should be included in the computing cycle and how many of them are required. This feature is called dynamic allocation in the system.
 
 \section{Peak Mode}
 Peak mode contains three layers as a whole. Compared to off-peak mode, one more layer is added. The top layer consists of Cloud Nodes, and the rest of layers are the same with the off-peak mode.
@@ -19,7 +19,7 @@ Peak mode is activated when the requests from the end devices are frequent. This
 Expected disadvantages of introducing the Cloud Nodes includes longer latency and security issues.
 
 \section{Face Identification}
-Face detection and recognition algorithm themselves are popular research topics. Consider they are not my focal topic, I tried to bring in popular implementations aimed at gain confidence for my system.
+Face detection and recognition algorithm themselves are popular research topics. Consider they are not the focal topic of this research, popular algorithms are implemented to gain confidence for the system.
 
 \begin{figure}
     \centering
