@@ -2,7 +2,7 @@
 This chapter is about the design of the system. It covers the components I used in the Fog Computing based face identification system and explain the reason why I come to this idea. Then, the next chapter will give more practical implementation detail of this design.
 
 \section{Overview}
-On the whole, the system consists of two behaviour mode, namely off-peak mode and peak mode. Off-peak mode means the requests from end devices are sparse or distributed evenly so that Fog Nodes own the capability of responding within a limited time slot. Cloud Nodes are not involved in this mode. On the contrary, peak mode demands the power of Cloud Nodes. This mode is triggered through a dynamic allocation algorithm which monitors the pressure of the Fog Nodes.
+On the whole, the system consists of two behaviour mode, namely off-peak mode and peak mode. Off-peak mode means the requests from end devices are sparse or distributed evenly so that Fog Nodes own the capability of responding within a limited time slot. Cloud Nodes are not involved in this mode. On the contrary, peak mode demands the power of Cloud Nodes. This mode is triggered through a dynamic allocation mechanism which monitors the pressure of the Fog Nodes.
 
 \section{Off-peak Mode}
 This mode only cover the lower two layers in the figure \ref{fig:design_of_the_system}. As you can see in the figure, the lowest layer contains end devices in the network of the Internet of Things. 
