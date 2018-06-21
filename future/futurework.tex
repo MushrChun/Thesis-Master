@@ -1,8 +1,17 @@
 \chapter{Future work} \label{chap:future}
+Though the prototype is well implemented, several features are immature. Future work can be summaries of following points:
 
 \begin{itemize}
     \item Automatise the dynamic allocation algorithm
     \item Dockerize deployment of the Cloud Nodes, leading to better scalability  Reinforce
-    \item Transparency of Fog Nodes and Cloud Nodes combination with multiple granularity  
+    \item Transparency of Fog Nodes and Cloud Nodes combination with multiple granularities  
 \end{itemize}
  
+\section{Dynamic Allocation Algorithm}
+Currently, the mechanism of overflowing unfinished tasks to Cloud Nodes is relatively basic. Stable response time as only one indicator may not well present the capability of the Fog Nodes. For example, the limitation of network bandwidth is not taken into consideration. On the other hand, the calculation of the stable response time is implemented with a rigid configuration. For instance, the range of the frequency of image collection is set manually, and the stable response time is calculated with an external analyser tool. In the future, the measurement should be more flexible and considerate.
+
+\section{Docker}
+Presently, in the Fog Cloud mode, cloud servers are configured manually via their web application and SSH. Considering Cloud Nodes will be deployed in a large-scale and dynamically adjusted to apply their feature of elasticity, Docker can be relied on to drive the automation.
+
+\section{Transparency}
+At present, the prototype cannot reflect the feature of transparency of this Fog Computing based model. The peak mode and off-peak mode are split-ed as design. In the future, the mode selection should be waived out to spare space for transparency mode only. In this mode, the system automatically assigns the tasks to the Fog Nodes and Cloud Nodes according to network latency, CPU usage, preference of the end devices.
